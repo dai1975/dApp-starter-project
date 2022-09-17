@@ -2,22 +2,20 @@ const main = async () => {
   const [owner, randomPerson] = await hre.ethers.getSigners();
   const waveContractFactory = await hre.ethers.getContractFactory("WavePortal");
   const waveContract = await waveContractFactory.deploy();
-  const wavePortal = await waveContract.deployed();
 
-  console.log("Contract deployed to: ", wavePortal.address);
-  console.log("Contract deployed by: ", owner.address);
+  console.log("Contract added to: ", waveContract.address);
+  //const allWaves0 = await waveContract.getAllWaves(); // uninitialized error
+  //console.log(allWaves0);
 
   const waveCount = await waveContract.getTotalWaves();
-  const waveTxn = await waveContract.wave();
+  const waveTxn = await waveContract.wave("A message!");
   await waveTxn.wait();
 
-  const waveCount2 = await waveContract.getTotalWaves();
-
-  const waveTxn2 = await waveContract.connect(randomPerson).wave();
+  const waveTxn2 = await waveContract.connect(randomPerson).wave("Another message!");
   await waveTxn2.wait();
 
-  const waveCount3 = await waveContract.getTotalWaves();
-  console.log(waveCount, waveCount2, waveCount3);
+  const allWaves = await waveContract.getAllWaves();
+  console.log(allWaves);
 }
 
 const runMain = async () => {
