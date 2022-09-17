@@ -5,6 +5,7 @@ import abi from './utils/WavePortal.json';
 import deploylog from './utils/log.goerli.json';
 console.log("contract address: ", deploylog.Contract_deployed_to);
 
+
 export default function App() {
   const [currentAccount, setCurrentAccount] = React.useState("");
   const [messageValue, setMessageValue] = React.useState("");
