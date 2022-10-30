@@ -5,6 +5,12 @@
   margin-top: 64px;
 }
 
+.topContainer {
+  display: flex;
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+}
+
 .dataContainer {
   display: flex;
   flex-direction: column;
@@ -30,5 +36,5 @@
   padding: 8px;
   border: 0;
   border-radius: 5px;
-  
+
 }
