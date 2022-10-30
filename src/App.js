@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ethers } from "ethers";
 import './App.css';
-import abi from './utils/WavePortal.json';
-import deploylog from './utils/log.goerli.json';
+import abi from './contract_configs/WavePortal.json';
+import deploylog from './contract_configs/log.goerli.json';
 console.log("contract address: ", deploylog.Contract_deployed_to);
 
 
