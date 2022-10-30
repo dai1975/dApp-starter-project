@@ -1,8 +1,12 @@
 help:
 	@echo "make <start>"
 
+local goerli:
+	$(MAKE) -C my-wave-portal $@
+
 start: src/utils/WavePortal.json src/utils/log.goerli.json
-	cd src; npm run start
+	cat src/utils/log.goerli.json
+	cd src; HOST=0.0.0.0 PORT=3000 npm run start
 
 src/utils/WavePortal.json: ./my-wave-portal/artifacts/contracts/WavePortal.sol/WavePortal.json
 	cp $? $@

@@ -44,10 +44,11 @@ export default function App() {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const wavePortalContract = new ethers.Contract(deploylog.Contract_deployed_to, abi.abi, signer);
-        try {
-          const count = await wavePortalContract.getTotalWaves(); //uninitialized error
-          console.log("Retrieved total wave count...", count.toNumber());
-        } catch (e) { console.log(e); }
+        const count = await wavePortalContract.getTotalWaves(); //uninitialized error
+        console.log("Retrieved total wave count...", count.toNumber());
+
+        const contractBalance = await provider.getBalance(wavePortalContract.address);
+        console.log("Contract balance:", ethers.utils.formatEther(contractBalance));
 
         const waveTxn = await wavePortalContract.wave(messageValue, { gasLimit: 300000 });
         console.log("Mining...", waveTxn.hash);
@@ -56,6 +57,15 @@ export default function App() {
 
         const count2 = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count2.toNumber());
+
+        const contractBalance_post = await provider.getBalance(wavePortalContract.address);
+        if (contractBalance_post.lt(contractBalance)) {
+          console.log("User won ETH!");
+        } else {
+          console.log("User didn't won ETH!");
+        }
+        console.log("Contract balance after wave:", ethers.utils.formatEther(contractBalance_post));
+
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -104,6 +114,7 @@ export default function App() {
 
   React.useEffect(() => {
     checkIfWalletIsConnected();
+    // eslint-disable-next-line
   }, []);
 
   React.useEffect(() => {
